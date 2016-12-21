@@ -3,7 +3,7 @@ var router = express.Router();
 var newsLive = require('../models/schema');
 
 /* Endpoint is:- http://localhost:8095/news/adddatatodb*/
-router.post("/adddatatodb",function(req ,res ,next) {
+router.post("/adddatatodb",isLoggedIn, function(req ,res ,next) {
   console.log("express save");
   if(req.body){
     var newssave = new newsLive();
@@ -36,7 +36,7 @@ router.post("/adddatatodb",function(req ,res ,next) {
 });
 
 /* Endpoint is:- http://localhost:8095/news/delete*/
-router.delete("/delete",function(req,res) {
+router.delete("/delete",isLoggedIn, function(req,res,next) {
   if(req.body){
     reques=req.body.Title;
 
@@ -57,7 +57,9 @@ router.delete("/delete",function(req,res) {
 });
 
 /* Endpoint is:- http://localhost:8095/news/update*/
-router.put('/update', function(req, res){
+router.put('/update',isLoggedIn,  function(req, res ,next){
+
+  console.log("inside put");
   if(req.body)
   {
    request1=req.body.Title;
@@ -81,4 +83,14 @@ router.get('/view', function(req, res) {
 
           });
 });
+
+function isLoggedIn (req, res, next) {
+if(req.isAuthenticated()){
+return next();
+}
+else {
+  res.json('not authenticated');
+}
+};
+
 module.exports = router;

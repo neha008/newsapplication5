@@ -60,6 +60,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client/assets')));
 
+app.use(require('express-session')({ secret: 'accesskey'}));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -108,9 +109,11 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function (err, user) {
+  userinfo.findById(id, function (err, user) {
     done(err, user);
   });
 });
+
+
 
 module.exports = app;

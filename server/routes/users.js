@@ -5,16 +5,8 @@ var passport=require('passport');
 var LocalStrategy=require('passport-local').Strategy;
 var connectflash=require('connect-flash');
 
-
-
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-
-
-    //console.log("Inside Get");
-
-
  res.send('respond with a resource');
 });
 
@@ -26,11 +18,8 @@ function(req, res) {
 });
 
 router.post('/usertest', function(req, res) {
-
-    //console.log("Inside Post");
     if(req.body)
     {
-        //console.log("Inside Body");
         var userdetails = new userauthentication();
         userdetails.username = req.body.username;
         userdetails.password = req.body.password;
@@ -44,11 +33,8 @@ router.post('/usertest', function(req, res) {
             {
                 res.send("inserted to database")
             }
-
         });
     }
-
-
 });
 
 
